@@ -22,7 +22,7 @@ class Bot(StreamListener):
             return
 
         if re.search((r'#煩悩.+'), get_status['content']):
-            deleteBonnou(self.client, get_status['content'])
+            deleteBonnou(self.client, get_status)
             return
         
         if re.search((r'煩悩.*数'), get_status['content']):

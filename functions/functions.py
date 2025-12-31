@@ -26,7 +26,10 @@ def rewrite(text: str, doRet: bool = True):
     return text
 
 def deleteBonnou(client: Mastodon, status: Status):
-    client.status_reply(status, "ゴーン")
+    client.status_reply(
+        to_status = status,
+        status = "ゴーン"
+    )
 
 def countBonnou(client: Mastodon, status: Status):
     bonnoulist = client.timeline_hashtag("煩悩")
@@ -34,12 +37,12 @@ def countBonnou(client: Mastodon, status: Status):
     if yearstart.month == 1 and yearstart.day <= 15:
         yearstart.year -= 1
     yearstart = yearstart.replace(month=1, day=15)
-    yearend = yearstart.replace(year=year+1)
+    yearend = yearstart.replace(year=yearstart.year+1)
 
     counter = 0
     for tl in bonnoulist:
         toottime = tl['created_at'].replace(tzinfo=None) + timedelta(hours=9)
-    if yearstart <= toottime < yearend:
-        counter += 1
+        if yearstart <= toottime < yearend:
+            counter += 1
     
     client.toot(f"みんなから集まった今年の煩悩は{counter}個です！")

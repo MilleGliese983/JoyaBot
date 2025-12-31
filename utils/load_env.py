@@ -4,5 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv(join(dirname(__file__), "../settings/.env"))
 
+APPTYPE = environ.get("APPTYPE")
 INSTANCE_URL = environ.get("INSTANCE_URL")
 ACCESS_TOKEN = environ.get("ACCESS_TOKEN")

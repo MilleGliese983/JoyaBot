@@ -1,3 +1,4 @@
+from schemas.status import Status, User
 from mastodon import Mastodon
 from mastodon.return_types import Status
 from bs4 import BeautifulSoup
@@ -33,7 +34,7 @@ def countBonnou(client: Mastodon, status: Status):
     if yearstart.month == 1 and yearstart.day <= 15:
         yearstart.year -= 1
     yearstart = yearstart.replace(month=1, day=15)
-    yearend = yearstart.replace(year+=1)
+    yearend = yearstart.replace(year=year+1)
 
     counter = 0
     for tl in bonnoulist:

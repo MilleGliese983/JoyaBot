@@ -8,10 +8,10 @@ from .functions import get_name, rewrite, deleteBonnou, countBonnou
 
 class Bot(StreamListener):
     def __init__(self, client: Mastodon):
-        super().__init__()
+        super(Bot, self).__init__()
         self.client = client
 
-    def on_update(self, status: Status):
+    def on_update(self, status: Mastodon):
         get_status = status
         get_status['content'] = rewrite(get_status['content'])
         print(datetime.now())
@@ -30,7 +30,7 @@ class Bot(StreamListener):
 
 
         
-def login() -> Mastodon:
+def Login() -> Mastodon:
     client = Mastodon(
         access_token = ACCESS_TOKEN,
         api_base_url = INSTANCE_URL

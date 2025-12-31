@@ -1,9 +1,8 @@
+from mastodon import Mastodon
 from threading import Thread
-from functions.streamings import login, listen
+from functions.streamings import LTLlisten, Login
 
-def main():
-    client = login()
-    Thread(target = listen, args = (client,)).start()
-
+  
 if __name__ == "__main__":
-    main()
+    client: Mastodon = Login()
+    Thread(target = LTLlisten, args = (client,)).start()

@@ -26,7 +26,7 @@ class Bot(StreamListener):
             return
         
         if re.search((r'煩悩.*数'), get_status['content']):
-            countBonnou(self.client, get_status['content'])
+            countBonnou(self.client)
             return
 
 

@@ -31,14 +31,23 @@ def deleteBonnou(client: Mastodon, status: Status):
         status = "ゴーン"
     )
 
-def countBonnou(client: Mastodon, status: Status):
-    bonnoulist = client.timeline_hashtag("煩悩")
+def countBonnou(client: Mastodon):
     yearstart = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     if yearstart.month == 1 and yearstart.day <= 15:
         yearstart.year -= 1
     yearstart = yearstart.replace(month=1, day=15)
     yearend = yearstart.replace(year=yearstart.year+1)
 
+    bonnnou_tag = "煩悩"
+    bonnoulist = []
+    bonnoulist_page = client.timeline_hashtag(bonnnou_tag, limit=40)
+    while len(bonnoulist_page) != 0:
+        bonnoulist += bonnoulist_page
+        if bonnoulist[-1]['created_at'].replace(tzinfo=None) + timedelta(hours=9) < yearstart:
+            break
+        last_id = bonnoulist[-1]['id']
+        bonnoulist_page = client.timeline_hashtag(bonnnou_tag, max_id=last_id, limit=40)
+    
     counter = 0
     for tl in bonnoulist:
         toottime = tl['created_at'].replace(tzinfo=None) + timedelta(hours=9)

@@ -26,9 +26,17 @@ def rewrite(text: str, doRet: bool = True):
     return text
 
 def deleteBonnou(client: Mastodon, status: Status):
+    chime_list = [
+        "ゴーン",
+        "ゴーーン",
+        "ゴーーーン",
+        "ゴォォォン",
+        "ゴーーーン……",
+        "ゴーーーん"
+    ]
     client.status_reply(
         to_status = status,
-        status = "ゴーン"
+        status = random.choice(chime_list)
     )
 
 def countBonnou(client: Mastodon):
